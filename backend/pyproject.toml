@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "issue-agent"
+version = "0.1.0"
+description = "AI Issue Agent — Phase 1 (SE373 Capstone)"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=1.0",
+    "pydantic>=2.0",
+]
+
+[project.scripts]
+issue-agent = "agent_system.interfaces.cli:main"
+issue-agent-server = "agent_system.interfaces.server:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+pythonpath = ["src", "."]
+
+[tool.coverage.run]
+source = ["src/agent_system"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
